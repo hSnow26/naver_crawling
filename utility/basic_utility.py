@@ -166,19 +166,21 @@ class BasicUtility:
 
 
     def getSplitCount(self, searchCount, splitCount):
-        splitCount = (searchCount//splitCount)
+        queryCount = (searchCount//splitCount)
         if (searchCount%splitCount > 0):
-            splitCount+=1
-        return splitCount
+            queryCount+=1
+        return queryCount
 
 
     def getSearchUrl(self, searchText, startNum, url1, url2):
         return (url1+searchText+url2+startNum)
 
+
     def getMobileUrl(self, url):
         if not 'm.blog.naver.com' in url:
             url = url.replace('https://blog','https://m.blog')
         return url
+
 
     def isProgramEnd(self):
         isProcess = 'p'
