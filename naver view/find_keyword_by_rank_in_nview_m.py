@@ -1,6 +1,6 @@
 #
 # verseino 1.0.0
-# Author: soel <kshzg@naver.com>
+# Author: seol <kshzg26@gmail.com>
 #
 import os
 import sys
