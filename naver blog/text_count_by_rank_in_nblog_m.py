@@ -1,6 +1,7 @@
 #
 # version 1.0.0
 # Author: soel <kshzg@naver.com>
+# The number of characters in the blog list (multiple)
 #
 import os
 import sys
@@ -16,13 +17,13 @@ while True :
     print(NaverCrawlingConst.SEARCH_QUESTION)
     searchText = input()
     searchCount = basicUtil.getSearchCount(NaverCrawlingConst.RANK_RANGE_QUESTION)
-    splitCount = basicUtil.getSplitCount(searchCount, NaverCrawlingConst.LIST_SPLIT_COUNT)
+    queryCount = basicUtil.getSplitCount(searchCount, NaverCrawlingConst.LIST_SPLIT_COUNT)
     
     blogUrlList = []
     searchCounting=0
 
-    #검색한 블로그 리스트
-    for i in range(splitCount):
+    #Searched list in Blog
+    for i in range(queryCount):
         startNum = str(i * NaverCrawlingConst.LIST_SPLIT_COUNT + 1)
         searchUrl = basicUtil.getSearchUrl(searchText
                                             ,startNum
@@ -40,7 +41,8 @@ while True :
             blogUrlList.append(blogContent.get('href')) #url list
     print()
     counting=0                
-    #담은 리스트 들의 본문 글자 수
+    
+    #The number of characters in the list
     for i in range(len(blogUrlList)):
         counting += 1
         url = blogUrlList[i]

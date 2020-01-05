@@ -1,6 +1,7 @@
 #
 # version 1.0.0
 # Author : soel <kshzg@naver.com>
+# The number of characters in the blog list
 # 
 import os
 import sys
@@ -12,8 +13,8 @@ basicUtil = BasicUtility()
 headers = {'User-Agent' : NaverCrawlingConst.HEADER_WINDOW_CHROME}
 
 print(NaverCrawlingConst.SEARCH_URL_QUESTION)
-# url = input()
-url = basicUtil.getMobileUrl(input())
+url = input()
+url = basicUtil.getMobileUrl(url)
 
 soup = basicUtil.getSoup(url, headers)
 contentCount = basicUtil.getBlogContentCountResult(url, soup)
