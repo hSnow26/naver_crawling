@@ -1,6 +1,8 @@
+#
+# version 1.0.0
 # Author : soel <kshzg@naver.com>
 #
-# 필요 패키지
+# TODO
 # pip install bs4  
 # pip install lxml
 # pip install selenium
