@@ -1,6 +1,7 @@
 #
 # verseino 1.0.0
 # Author: seol <kshzg26@gmail.com>
+# Find keyword in searched 'View' list
 #
 import os
 import sys

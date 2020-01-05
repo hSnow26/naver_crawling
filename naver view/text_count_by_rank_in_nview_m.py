@@ -1,6 +1,7 @@
 #
 # verseino 1.0.0
 # Author: seol <kshzg26@gmail.com>
+# The number of characters in the 'View' list (multiple)
 #
 import os
 import sys
