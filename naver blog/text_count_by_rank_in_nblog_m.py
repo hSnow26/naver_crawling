@@ -30,8 +30,6 @@ while True :
                                             ,NaverCrawlingConst.BLOG_SEARCH_URL)
 
         soup = basicUtil.getSoup(searchUrl, headers)
-
-        #searched (urls, titles)
         blogContents = soup.select(NaverCrawlingConst.BLOG_CONTENT_LIST_SELECTOR)
 
         for blogContent in blogContents:
