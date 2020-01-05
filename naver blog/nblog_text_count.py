@@ -10,7 +10,6 @@ from const.naver_crawling_const import NaverCrawlingConst
 
 basicUtil = BasicUtility()
 headers = {'User-Agent' : NaverCrawlingConst.HEADER_WINDOW_CHROME}
-# url = 'https://m.blog.naver.com/PostView.nhn?blogId=minic3000&logNo=220975837336&navType=tl'
 
 print(NaverCrawlingConst.SEARCH_URL_QUESTION)
 # url = input()
