@@ -16,12 +16,13 @@ while True :
     print(NaverCrawlingConst.SEARCH_QUESTION)
     searchText = input()
     searchCount = basicUtil.getSearchCount(NaverCrawlingConst.RANK_RANGE_QUESTION)
-    splitCount = basicUtil.getSplitCount(searchCount, NaverCrawlingConst.LIST_SPLIT_COUNT)
+    queryCount = basicUtil.getSplitCount(searchCount, NaverCrawlingConst.LIST_SPLIT_COUNT)
 
     viewUrlList = []
     searchCounting=0
-    #검색한 VIEW 리스트
-    for i in range(splitCount):
+
+    #Searched list in VIEW
+    for i in range(queryCount):
         startNum = str(i * NaverCrawlingConst.LIST_SPLIT_COUNT + 1)
         searchUrl = basicUtil.getSearchUrl(searchText
                                             ,startNum
@@ -29,8 +30,6 @@ while True :
                                             ,NaverCrawlingConst.VIEW_SEARCH_URL)
 
         soup = basicUtil.getSoup(searchUrl, headers)
-
-        #searched (urls, titles)
         viewContents = soup.select(NaverCrawlingConst.VIEW_CONTENT_LIST_SELECTOR)
 
         for i in range(NaverCrawlingConst.LIST_SPLIT_COUNT):
@@ -41,7 +40,8 @@ while True :
             viewUrlList.append(viewContents[i].get('href')) #url list
     print()
     listCounting=0
-    #담은 리스트 들의 본문 글자 수
+
+    #The number of characters in the list
     for i in range(len(viewUrlList)):
         listCounting += 1
         url = viewUrlList[i]

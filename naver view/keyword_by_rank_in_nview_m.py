@@ -22,7 +22,7 @@ while True :
     keyword = input()
 
     searchCount = basicUtil.getSearchCount(NaverCrawlingConst.RANK_RANGE_QUESTION)
-    splitCount = basicUtil.getSplitCount(searchCount, NaverCrawlingConst.LIST_SPLIT_COUNT)
+    queryCount = basicUtil.getSplitCount(searchCount, NaverCrawlingConst.LIST_SPLIT_COUNT)
     searchTextList = searchTexts.split(',')
     dataFrame = []
     for searchText in searchTextList:
@@ -33,7 +33,7 @@ while True :
         
         print("\n검색어 : "+searchText)
         #검색한 VIEW 리스트
-        for i in range(splitCount):
+        for i in range(queryCount):
             startNum = str(i * NaverCrawlingConst.LIST_SPLIT_COUNT + 1)
             searchUrl = basicUtil.getSearchUrl(searchText
                                                 ,startNum
