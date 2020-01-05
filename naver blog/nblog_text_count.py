@@ -1,6 +1,6 @@
 #
 # version 1.0.0
-# Author : soel <kshzg@naver.com>
+# Author : seol <kshzg26@gmail.com>
 # The number of characters in the blog list
 # 
 import os
