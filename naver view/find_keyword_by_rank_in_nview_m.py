@@ -44,15 +44,15 @@ while True :
             soup = basicUtil.getSoup(searchUrl, headers)
 
             viewContents = soup.select(NaverCrawlingConst.VIEW_CONTENT_LIST_SELECTOR)
-            viewDates = soup.select(NaverCrawlingConst.VIEW_DATE_LIST_SELECTOR)
+            # viewDates = soup.select(NaverCrawlingConst.VIEW_DATE_LIST_SELECTOR)
 
             for viewContent in viewContents:
                 searchCounting += 1
                 if(searchCounting>searchCount):
                     break
                 category = basicUtil.getCategory(viewContent.get('href'))
-                print(str(searchCounting)+'. 제목: '+viewContent.text+', URL: '+viewContent.get('href')+ 'o '+category)
-                viewInfoList.append([viewContent.get('href'), viewContent.text, 'o '+category])
+                print(str(searchCounting)+'. 제목: '+viewContent.text+', URL: '+viewContent.get('href')+ category)
+                viewInfoList.append([viewContent.get('href'), viewContent.text, category])
         print()
         counting=0
         #담은 리스트 들에서 키워드 검색
@@ -65,7 +65,7 @@ while True :
 
             if (basicUtil.isExistKeywordResult(url, soup, title, keyword)):
                 print(str(counting)+": "+str(viewInfo[2]))
-                resultList.append(viewInfo[2]) #date
+                resultList.append(viewInfo[2]) #category
             else:
                 print(str(counting))
                 resultList.append('')
