@@ -14,6 +14,12 @@ class NaverCrawlingConst:
     FIND_RANK_QUESTION = "랭킹을 알아보고 싶은 업체명 >"
     INPUT_FILE_NAME = "파일명 입력 >"
     LIST_SPLIT_COUNT = 10
+    CATEGORY_BLOG = '(B)'
+    CATEGORY_CAFE = '(C)'
+    CATEGORY_POST = '(P)'
+    CATEGORY_UNKNOWN = '(unknown)'
+    OUT_OF_RANK = 'out of rank'
+    TOP_RANK = 'top rank'
     
     BLOG_SEARCH_URL = '&sm=tab_pge&srchby=all&st=sim&where=m_blog&start='
     BLOG_CONTENT_LIST_SELECTOR = '#addParemt > li.bx > div > a'
