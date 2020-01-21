@@ -30,10 +30,10 @@ while True :
         viewInfoList = []
         searchCounting=0
 
-        searchText = searchText.strip() #양쪽 공백 제거
+        searchText = searchText.strip() #Both side white space remove
         
         print("\n검색어 : "+searchText)
-        #검색한 VIEW 리스트
+        #Searched list in VIEW
         for i in range(queryCount):
             startNum = str(i * NaverCrawlingConst.LIST_SPLIT_COUNT + 1)
             searchUrl = basicUtil.getSearchUrl(searchText
@@ -51,12 +51,15 @@ while True :
                 if(searchCounting>searchCount):
                     break
                 category = basicUtil.getCategory(viewContent.get('href'))
-                print(str(searchCounting)+'. 제목: '+viewContent.text+', URL: '+viewContent.get('href')+ category)
+                print(str(searchCounting)+'. 제목: '+viewContent.text+', URL: '+viewContent.get('href')+ ', '+category)
                 viewInfoList.append([viewContent.get('href'), viewContent.text, category])
         print()
         counting=0
-        #담은 리스트 들에서 키워드 검색
+        
+        #Searching keyword in viewInfoList
         resultList = []
+        topRankFlag = 0
+        topRankNum = NaverCrawlingConst.OUT_OF_RANK
         for viewInfo in viewInfoList:
             counting += 1
             url = viewInfo[0] #url
@@ -66,17 +69,28 @@ while True :
             if (basicUtil.isExistKeywordResult(url, soup, title, keyword)):
                 print(str(counting)+": "+str(viewInfo[2]))
                 resultList.append(viewInfo[2]) #category
+
+                #top rank check
+                if(topRankFlag is 0):
+                    topRankNum = counting
+                    topRankFlag = 1
             else:
                 print(str(counting))
                 resultList.append('')
         print()
-        dataFrame.append(pd.DataFrame({searchText : resultList})) #컬럼별 데이터 추가
+
+        # resultList.insert(0, topRankNum) #foward append
+        resultList.append(topRankNum) #foward append
+        dataFrame.append(pd.DataFrame({searchText : resultList})) #Add data by column
 
     resultDataFrame = dataFrame[0]
     for i in range(len(searchTextList)):
         if(i+1<len(searchTextList)):
-            resultDataFrame = pd.concat([resultDataFrame, dataFrame[i+1]], axis=1)
-    fileUtil.makeDataFrametoCsv(resultDataFrame)
+            resultDataFrame = pd.concat(dataFrame, axis=1)
+            # resultDataFrame = pd.concat([resultDataFrame, dataFrame[i+1]], axis=1)
+    
+    startIndex = 1 # first value
+    fileUtil.makeDataFrametoCsv(resultDataFrame, startIndex, len(resultList))
 
     if(basicUtil.isProgramEnd()):
         break
