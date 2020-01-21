@@ -19,44 +19,48 @@ class BasicUtility:
     def isExistKeywordResult(self, url, soup, title, keyword):
         self.isIncludeKeyword = -1
 
-        if(self.isExistKeywordByIsValidPostView(url, soup, title, keyword) != -1):
+        if(self.isExistKeywordInTitle(title, keyword) != -1):
             return True
 
-        if(self.isExistKeyword(soup, NaverCrawlingConst.BLOG_CONTENT_SELECTOR2, title, keyword) != -1):
+        if(self.isExistKeywordByIsValidPostView(url, soup, keyword) != -1):
+            return True
+
+        if(self.isExistKeyword(soup, NaverCrawlingConst.BLOG_CONTENT_SELECTOR2, keyword) != -1):
             return True
         
-        if(self.isExistKeyword(soup, NaverCrawlingConst.BLOG_CONTENT_SELECTOR3, title, keyword) != -1):
+        if(self.isExistKeyword(soup, NaverCrawlingConst.BLOG_CONTENT_SELECTOR3, keyword) != -1):
             return True
 
-        if(self.isExistKeyword(soup, NaverCrawlingConst.BLOG_CONTENT_SELECTOR4, title, keyword) != -1):
+        if(self.isExistKeyword(soup, NaverCrawlingConst.BLOG_CONTENT_SELECTOR4, keyword) != -1):
             return True
 
-        if(self.isExistKeyword(soup, NaverCrawlingConst.BLOG_CONTENT_SELECTOR5, title, keyword) != -1):
+        if(self.isExistKeyword(soup, NaverCrawlingConst.BLOG_CONTENT_SELECTOR5, keyword) != -1):
             return True
 
-        if(self.isExistKeyword(soup, NaverCrawlingConst.BLOG_CONTENT_SELECTOR6, title, keyword) != -1):
+        if(self.isExistKeyword(soup, NaverCrawlingConst.BLOG_CONTENT_SELECTOR6, keyword) != -1):
             return True
         
-        if(self.isExistKeyword(soup, NaverCrawlingConst.CAFE_CONTENT_SELECTOR1, title, keyword) != -1):
+        if(self.isExistKeyword(soup, NaverCrawlingConst.CAFE_CONTENT_SELECTOR1, keyword) != -1):
             return True
         
-        if(self.isExistKeyword(soup, NaverCrawlingConst.POST_CONTENT_SELECTOR1, title, keyword) != -1):
+        if(self.isExistKeyword(soup, NaverCrawlingConst.POST_CONTENT_SELECTOR1, keyword) != -1):
             return True
 
         return False
-        
 
-    def isExistKeyword(self, soup, selector, title, keyword):
+    def isExistKeywordInTitle(self, title, keyword):
+        self.isIncludeKeyword = title.find(keyword)
+        return self.isIncludeKeyword    
+
+    def isExistKeyword(self, soup, selector, keyword):
         contents = soup.select(selector)
         for content in contents:
-            # print(content.text.replace(" ", "").replace("\n",""))
-            # content = title+content.text.replace(" ", "").replace("\n","")
-            content = title+content.text
+            content = content.text
             self.isIncludeKeyword = content.find(keyword)
         return self.isIncludeKeyword
 
 
-    def isExistKeywordByIsValidPostView(self, url, soup, title, keyword):
+    def isExistKeywordByIsValidPostView(self, url, soup, keyword):
         if 'PostView' in url:
             contents = soup.select(NaverCrawlingConst.BLOG_POSTVIEW_CONTENT_SELECTOR)
         else:
@@ -65,7 +69,7 @@ class BasicUtility:
         for content in contents:
             # print(content.text.replace(" ", "").replace("\n",""))
             # content = title+content.text.replace(" ", "").replace("\n","")
-            content = title+content.text
+            content = content.text
             self.isIncludeKeyword = content.find(keyword)
         return self.isIncludeKeyword
 
@@ -180,6 +184,19 @@ class BasicUtility:
         if not 'm.blog.naver.com' in url:
             url = url.replace('https://blog','https://m.blog')
         return url
+        
+
+    def getCategory(self, url):
+        if 'm.blog.naver.com' in url:
+            return NaverCrawlingConst.CATEGORY_BLOG
+
+        if 'm.cafe.naver.com' in url:
+            return NaverCrawlingConst.CATEGORY_CAFE
+
+        if 'm.post.naver.com' in url:
+            return NaverCrawlingConst.CATEGORY_POST
+        
+        return NaverCrawlingConst.CATEGORY_UNKNOWN
 
 
     def isProgramEnd(self):
