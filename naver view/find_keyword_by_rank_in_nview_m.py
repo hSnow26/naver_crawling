@@ -79,8 +79,7 @@ while True :
                 resultList.append('')
         print()
 
-        # resultList.insert(0, topRankNum) #foward append
-        resultList.append(topRankNum) #foward append
+        resultList.insert(0, topRankNum) #foward append
         dataFrame.append(pd.DataFrame({searchText : resultList})) #Add data by column
 
     resultDataFrame = dataFrame[0]
@@ -89,8 +88,8 @@ while True :
             resultDataFrame = pd.concat(dataFrame, axis=1)
             # resultDataFrame = pd.concat([resultDataFrame, dataFrame[i+1]], axis=1)
     
-    startIndex = 1 # first value
-    fileUtil.makeDataFrametoCsv(resultDataFrame, startIndex, len(resultList))
+    startIndex = 0 # first value
+    fileUtil.makeDataFrametoCsv(resultDataFrame, startIndex, 0)
 
     if(basicUtil.isProgramEnd()):
         break
