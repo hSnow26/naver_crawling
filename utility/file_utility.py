@@ -10,8 +10,8 @@ import openpyxl as excel
 class FileUtility:
 
     def makeDataFrametoCsv(self, dataFrame, startIndex, changeIndex):
-        dataFrame.index += startIndex #1부터
-        dataFrame.rename(index = {changeIndex : NaverCrawlingConst.TOP_RANK}, inplace = True) #first index rename
+        dataFrame.index += startIndex
+        dataFrame.rename(index = {changeIndex : NaverCrawlingConst.TOP_RANK}, inplace = True) #index rename
         print(NaverCrawlingConst.INPUT_FILE_NAME)
         save_name = input()
         # dataFrame.to_csv(save_name+'.csv', encoding='cp949')
